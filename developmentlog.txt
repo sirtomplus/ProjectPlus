@@ -1,3 +1,13 @@
+5-19-12
+=========
+* Added in simple level generator
+	> Generates grid of given rows/cols
+
+* Do game rules next
+	> Player only allowed to move 1 square at a time (diagonals included)
+	> Player can't move onto tiles that are occupied by enemies, objects, etc.
+
+
 5-17-12
 =========
 * Added in some simple controls to move from tile to tile

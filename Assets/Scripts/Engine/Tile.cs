@@ -14,15 +14,46 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
     ArrayList adjacencyList;
-    GameObject objOnTile;
+    public GameObject objOnTile;
+	private bool onStart = true;
 
 	// Use this for initialization
 	void Start () {
-	
+		adjacencyList = new ArrayList();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(Input.GetButtonDown("Fire2")){
+			OutputAdjList();
+		}
+	}
+
+	void LateUpdate(){
+		onStart = false;
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+//		if(col.tag == "Tile"){
+//			adjacencyList.Add(col.gameObject);
+//		}
+		if(col.tag == "Player" && onStart){
+			Debug.Log ("Found player");
+			col.gameObject.GetComponent<Player>().setStartingTile(this.gameObject);
+		}
+	}
+
+	void OutputAdjList(){
+		for(int i = 0; i < adjacencyList.Count; ++i){
+			Debug.Log (adjacencyList[i]);
+		}
+	}
+
+	public void OccupyTile(GameObject obj){
+		objOnTile = obj;
+	}
+
+	public void LeaveTile(){
+		objOnTile = null;
 	}
 }
