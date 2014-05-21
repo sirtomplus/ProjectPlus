@@ -13,13 +13,16 @@ using System.Collections;
  */
 
 public class Tile : MonoBehaviour {
-    ArrayList adjacencyList;
-    public GameObject objOnTile;
-	private bool onStart = true;
+    ArrayList adjacencyList;        //List of tiles that are touching this one (diagonals excluded)
+    ArrayList diagonalAdjList;      //List of tiles that are touching this one (diagonals only)
+    public GameObject objOnTile;    //GameObject that is currently on this tile
+	private bool onStart = true;    //Checks if the player started on this tile
+    private bool isWall = false;    //If the tile is a wall (unpathable)
 
 	// Use this for initialization
 	void Start () {
 		adjacencyList = new ArrayList();
+        diagonalAdjList = new ArrayList();
 	}
 	
 	// Update is called once per frame
@@ -38,7 +41,6 @@ public class Tile : MonoBehaviour {
 //			adjacencyList.Add(col.gameObject);
 //		}
 		if(col.tag == "Player" && onStart){
-			Debug.Log ("Found player");
 			col.gameObject.GetComponent<Player>().setStartingTile(this.gameObject);
 		}
 	}
@@ -56,4 +58,34 @@ public class Tile : MonoBehaviour {
 	public void LeaveTile(){
 		objOnTile = null;
 	}
+
+    public bool isOccupied()
+    {
+        if (objOnTile != null || isWall)
+            return true;
+        else
+            return false;
+    }
+
+    public void addToAdjacencyList(GameObject tile)
+    {
+        adjacencyList.Add(tile);
+    }
+
+    public void addToDiagAdjList(GameObject tile)
+    {
+        diagonalAdjList.Add(tile);
+    }
+
+    public bool isValidMove(GameObject tile)
+    {
+        if (!tile.GetComponent<Tile>().isOccupied() && adjacencyList.Contains(tile) || diagonalAdjList.Contains(tile))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

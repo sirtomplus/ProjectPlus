@@ -1,3 +1,13 @@
+5-20-12
+=========
+* Player can only move 1 square at the time now
+* Need to keep the game state when entering menus
+	> Either cache the game state into XML/PlayerPrefs or Move the camera into another part of the scene.
+* Look into dynamically loading assets into memory
+	> Resources class
+	> AssetBundle class (But not likely to be used because it requires internet connection)
+
+
 5-19-12
 =========
 * Added in simple level generator

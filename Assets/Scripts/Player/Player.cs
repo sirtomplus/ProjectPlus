@@ -21,7 +21,8 @@ public class Player : MonoBehaviour{
             
 			if(hit.collider != null){
 				if(hit.collider.tag == "Tile" && !isMoving){
-					StartCoroutine(moveToTile(hit.collider.gameObject));
+                    if(curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject))
+					    StartCoroutine(moveToTile(hit.collider.gameObject));
 				}
 				else if(hit.collider.tag == "Tile"){
 					nextTile = hit.collider.gameObject;
@@ -32,7 +33,8 @@ public class Player : MonoBehaviour{
 
 	void FixedUpdate(){
 		if(nextTile != null && !isMoving){
-			StartCoroutine(moveToTile(nextTile));
+            if (curTile.GetComponent<Tile>().isValidMove(nextTile))
+			    StartCoroutine(moveToTile(nextTile));
 			nextTile = null;
 		}
 	}
@@ -43,9 +45,9 @@ public class Player : MonoBehaviour{
 		curTile = Tile;
 		Tile.GetComponent<Tile>().OccupyTile(this.gameObject);
 		while(true){
-			transform.position = Vector3.Lerp (transform.position, Tile.transform.position, .08f);
-			if(Mathf.Abs(transform.position.x - Tile.transform.position.x) < .1f &&
-			                       Mathf.Abs(transform.position.y - Tile.transform.position.y) < .02f){
+			transform.position = Vector3.Lerp (transform.position, Tile.transform.position, .1f);
+			if(Mathf.Abs(transform.position.x - Tile.transform.position.x) < .09f &&
+			                       Mathf.Abs(transform.position.y - Tile.transform.position.y) < .09f){
 				transform.position = Tile.transform.position;
 
 				break;
