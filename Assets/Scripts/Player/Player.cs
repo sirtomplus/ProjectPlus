@@ -21,7 +21,7 @@ public class Player : MonoBehaviour{
             
 			if(hit.collider != null){
 				if(hit.collider.tag == "Tile" && !isMoving){
-                    if(curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject))
+                    if(curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject.GetComponent<Tile>()))
 					    StartCoroutine(moveToTile(hit.collider.gameObject));
 				}
 				else if(hit.collider.tag == "Tile"){
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour{
 
 	void FixedUpdate(){
 		if(nextTile != null && !isMoving){
-            if (curTile.GetComponent<Tile>().isValidMove(nextTile))
+            if (curTile.GetComponent<Tile>().isValidMove(nextTile.GetComponent<Tile>()))
 			    StartCoroutine(moveToTile(nextTile));
 			nextTile = null;
 		}

@@ -19,6 +19,13 @@ public class Tile : MonoBehaviour {
 	private bool onStart = true;    //Checks if the player started on this tile
     private bool isWall = false;    //If the tile is a wall (unpathable)
 
+    public struct tileLocation
+    {
+        public int rowNum;             //Row the tile is in
+        public int colNum;             //Column the tile is in
+    };
+    private tileLocation location;
+
 	// Use this for initialization
 	void Start () {
 		adjacencyList = new ArrayList();
@@ -77,9 +84,9 @@ public class Tile : MonoBehaviour {
         diagonalAdjList.Add(tile);
     }
 
-    public bool isValidMove(GameObject tile)
+    public bool isValidMove(Tile tile)
     {
-        if (!tile.GetComponent<Tile>().isOccupied() && adjacencyList.Contains(tile) || diagonalAdjList.Contains(tile))
+        if (!tile.isOccupied() && adjacencyList.Contains(tile.gameObject) || diagonalAdjList.Contains(tile.gameObject))
         {
             return true;
         }
@@ -87,5 +94,21 @@ public class Tile : MonoBehaviour {
         {
             return false;
         }
+    }
+
+    public void setLocation(int row, int col)
+    {
+        location.rowNum = row;
+        location.colNum = col;
+    }
+
+    public tileLocation getLocation()
+    {
+        return location;
+    }
+
+    int distanceFromTile(Tile tile)
+    {
+        return (Mathf.Abs(tile.location.rowNum - location.rowNum + tile.location.colNum - location.colNum));
     }
 }
