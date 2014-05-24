@@ -9,10 +9,15 @@ public class Level : MonoBehaviour {
 	public int numOfCols;
     //public GameObject[] levelState;
     public GameObject[][] levelState;
-	private GameObject Player;
+	private GameObject Player;          //Maybe cache the player object
+    private GameObject Enemy;           //For Debugging purposes
 
 	void Awake(){ 
         //levelState = new GameObject[numOfCols*numOfRows];
+
+        //Loads the prefab Enemy at runtime and instantiates it
+        Enemy = Instantiate(Resources.Load<Object>("Prefabs/Enemy"), new Vector3(0f, 0f, 0f), Quaternion.Euler(0f, 0f, 0f)) as GameObject;
+
         levelState = new GameObject[numOfRows][];
         for (int i = 0; i < numOfRows; ++i)
         {
@@ -25,11 +30,6 @@ public class Level : MonoBehaviour {
 	void Start () {
 		Tile.renderer.material = Colors[Random.Range(0, Colors.Length)];
 		GenerateLevel();
-        //int startTileIndex = Random.Range(0, levelState.Length);
-        //while (levelState[startTileIndex].GetComponent<Tile>().isOccupied())
-        //{
-        //    startTileIndex = Random.Range(0, levelState.Length);
-        //}
         int startingTileRow = Random.Range(0, numOfRows);
         int startingTileCol = Random.Range(0, numOfCols);
         while (levelState[startingTileRow][startingTileCol].GetComponent<Tile>().isOccupied())
@@ -37,8 +37,13 @@ public class Level : MonoBehaviour {
             startingTileRow = Random.Range(0, numOfRows);
             startingTileCol = Random.Range(0, numOfCols);
         }
-        //setPlayerStartingTile(levelState[(Random.Range (0, levelState.Length))] as GameObject);
-        setPlayerStartingTile(levelState[Random.Range(0, numOfRows)][Random.Range(0, numOfCols)]);
+        setEnemyStartingTile(levelState[startingTileRow][startingTileCol]);
+        while (levelState[startingTileRow][startingTileCol].GetComponent<Tile>().isOccupied())
+        {
+            startingTileRow = Random.Range(0, numOfRows);
+            startingTileCol = Random.Range(0, numOfCols);
+        }
+        setEnemyStartingTile(levelState[startingTileRow][startingTileCol]);
 	}
 	
 	// Update is called once per frame
@@ -50,13 +55,16 @@ public class Level : MonoBehaviour {
 		for(int i = 0; i < numOfRows; ++i){
 			for(int j = 0; j < numOfCols; ++j){
 				GameObject tile = Instantiate(Tile, new Vector3(j, i, 0f), Quaternion.Euler(0f,0f,0f)) as GameObject;
-				tile.renderer.material = Colors[Random.Range (0, Colors.Length)];
+                //tile.renderer.material = Colors[Random.Range (0, Colors.Length)];
+                //string path = "Materials/Color" + Random.Range(0, 2);
+                tile.renderer.material = Resources.Load<Material>("Materials/Color" + Random.Range(0, 2));
                 //levelState[i*8+j] = tile;
                 levelState[i][j] = tile;
 			}
 		}
         //Coroutine to wait until the next frame because the ArrayList in the Tile objects have not been initialized yet
         StartCoroutine(WaitBeforeSettingAdjList());
+        ChooseExit(levelState[Random.Range(0, numOfRows)][Random.Range(0, numOfCols)].GetComponent<Tile>());
 	}
 
     void SetAdjacencyList()
@@ -195,4 +203,15 @@ public class Level : MonoBehaviour {
 		Player.transform.position = Tile.transform.position;
 		Player.GetComponent<Player>().setStartingTile(Tile);
 	}
+
+    public void setEnemyStartingTile(GameObject Tile)
+    {
+        Enemy.transform.position = Tile.transform.position;
+        Enemy.GetComponent<Unit>().setStartingTile(Tile);
+    }
+
+    void ChooseExit(Tile tile) {
+        tile.renderer.material.color = Color.red;
+        tile.isExit = true;
+    }
 }

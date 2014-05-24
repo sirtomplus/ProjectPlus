@@ -1,3 +1,19 @@
+5-23-12
+=========
+[Added]
+* Exit tile - Currently loads the same game scene which will generate a new level
+* Loads the enemy objects and tile colors at runtime
+
+[Do next]
+* Screen orientation
+* Zooming
+
+5-22-12
+=========
+[Added]
+* Simple Enemy
+* Simple attack command
+* Exit button on the GUI
 
 5-20-12
 =========

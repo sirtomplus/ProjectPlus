@@ -18,6 +18,7 @@ public class Tile : MonoBehaviour {
     public GameObject objOnTile;    //GameObject that is currently on this tile
 	private bool onStart = true;    //Checks if the player started on this tile
     private bool isWall = false;    //If the tile is a wall (unpathable)
+    public bool isExit = false;     //If the tile is the exit (takes player to next level)
 
     public struct tileLocation
     {
@@ -87,6 +88,18 @@ public class Tile : MonoBehaviour {
     public bool isValidMove(Tile tile)
     {
         if (!tile.isOccupied() && adjacencyList.Contains(tile.gameObject) || diagonalAdjList.Contains(tile.gameObject))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool isValidAttack(Tile tile)
+    {
+        if (adjacencyList.Contains(tile.gameObject) || diagonalAdjList.Contains(tile.gameObject))
         {
             return true;
         }

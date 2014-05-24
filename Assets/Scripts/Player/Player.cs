@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour{
-	public int Health;
-	GameObject curTile;
+public class Player : Unit{
 	GameObject nextTile;
-	private bool isMoving = false;
 
 	void Awake(){
 	}
 
 	void Start() {
+        DontDestroyOnLoad(gameObject);
 	}
 
 	void Update(){
+        if (curTile != null && !isMoving && curTile.GetComponent<Tile>().isExit) {
+            curTile = null;
+            Application.LoadLevel(Application.loadedLevel);
+        }
         if (Input.GetMouseButtonUp(0))
         {
             //Mouse click to simulate touch controls
@@ -21,44 +23,28 @@ public class Player : MonoBehaviour{
             
 			if(hit.collider != null){
 				if(hit.collider.tag == "Tile" && !isMoving){
-                    if(curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject.GetComponent<Tile>()))
-					    StartCoroutine(moveToTile(hit.collider.gameObject));
+                    if (curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject.GetComponent<Tile>()))
+                        StartCoroutine(moveToTile(hit.collider.gameObject));
 				}
 				else if(hit.collider.tag == "Tile"){
 					nextTile = hit.collider.gameObject;
 				}
+                if (hit.collider.tag == "Enemy" && !isMoving) {
+                    if (curTile.GetComponent<Tile>().isValidAttack(hit.collider.gameObject.GetComponent<Enemy>().curTile.GetComponent<Tile>())) {
+                        Attack(hit.collider.gameObject);
+                    }
+                }
             }
 		}
+        if (nextTile != null && !isMoving)
+        {
+            if (curTile.GetComponent<Tile>().isValidMove(nextTile.GetComponent<Tile>()))
+                StartCoroutine(moveToTile(nextTile));
+            nextTile = null;
+        }
 	}
 
 	void FixedUpdate(){
-		if(nextTile != null && !isMoving){
-            if (curTile.GetComponent<Tile>().isValidMove(nextTile.GetComponent<Tile>()))
-			    StartCoroutine(moveToTile(nextTile));
-			nextTile = null;
-		}
-	}
-
-	IEnumerator moveToTile(GameObject Tile){
-		isMoving = true;
-		curTile.GetComponent<Tile>().LeaveTile();
-		curTile = Tile;
-		Tile.GetComponent<Tile>().OccupyTile(this.gameObject);
-		while(true){
-			transform.position = Vector3.Lerp (transform.position, Tile.transform.position, .1f);
-			if(Mathf.Abs(transform.position.x - Tile.transform.position.x) < .09f &&
-			                       Mathf.Abs(transform.position.y - Tile.transform.position.y) < .09f){
-				transform.position = Tile.transform.position;
-
-				break;
-			}
-			yield return new WaitForFixedUpdate();
-		}
-		isMoving = false;
-	}
-
-	public void setStartingTile(GameObject Tile){
-		curTile = Tile;
-		Tile.GetComponent<Tile>().OccupyTile(this.gameObject);
+		
 	}
 }
