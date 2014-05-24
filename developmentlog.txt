@@ -5,7 +5,7 @@
 * Loads the enemy objects and tile colors at runtime
 
 [Do next]
-* Screen orientation
+* [Done] Screen orientation
 * Zooming
 
 5-22-12

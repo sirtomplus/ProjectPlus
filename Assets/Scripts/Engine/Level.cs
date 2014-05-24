@@ -37,7 +37,7 @@ public class Level : MonoBehaviour {
             startingTileRow = Random.Range(0, numOfRows);
             startingTileCol = Random.Range(0, numOfCols);
         }
-        setEnemyStartingTile(levelState[startingTileRow][startingTileCol]);
+        setPlayerStartingTile(levelState[startingTileRow][startingTileCol]);
         while (levelState[startingTileRow][startingTileCol].GetComponent<Tile>().isOccupied())
         {
             startingTileRow = Random.Range(0, numOfRows);

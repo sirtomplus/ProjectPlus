@@ -21,7 +21,12 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
+        if (Input.deviceOrientation == DeviceOrientation.Portrait || Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown) {
+            Camera.main.orthographicSize = 4;
+        }
+        else if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft || Input.deviceOrientation == DeviceOrientation.LandscapeRight) {
+            Camera.main.orthographicSize = 3;
+        }
 	}
 
 	void LateUpdate(){
