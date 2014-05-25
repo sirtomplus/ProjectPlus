@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour{
     public void setStartingTile(GameObject Tile)
     {
         curTile = Tile;
-        Tile.GetComponent<Tile>().OccupyTile(this.gameObject);
+        Tile.GetComponent<Tile>().OccupyTile(gameObject);
     }
 
     public void TakeDamage(int damage)

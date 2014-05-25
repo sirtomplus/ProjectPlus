@@ -87,7 +87,7 @@ public class Tile : MonoBehaviour {
 
     public bool isValidMove(Tile tile)
     {
-        if (!tile.isOccupied() && adjacencyList.Contains(tile.gameObject) || diagonalAdjList.Contains(tile.gameObject))
+        if (!tile.isOccupied() && (adjacencyList.Contains(tile.gameObject) || diagonalAdjList.Contains(tile.gameObject)))
         {
             return true;
         }

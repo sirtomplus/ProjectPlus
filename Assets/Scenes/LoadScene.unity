@@ -180,6 +180,10 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: bc3a35ef784e7a844b4c7e2962ca6781, type: 2}
+      propertyPath: Damage
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc3a35ef784e7a844b4c7e2962ca6781, type: 2}
   m_RootGameObject: {fileID: 661883982}
@@ -245,7 +249,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -319,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 10
-  Damage: 0
+  Damage: 5
   curTile: {fileID: 0}
 --- !u!1 &972554995
 GameObject:

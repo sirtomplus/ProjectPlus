@@ -232,6 +232,7 @@ GameObject:
   - 124: {fileID: 1856643509}
   - 81: {fileID: 1856643508}
   - 114: {fileID: 1856643513}
+  - 114: {fileID: 1856643514}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -310,5 +311,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72c43e9b22f922248abb89b9ff3e15c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1856643514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856643507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533fbd3f0304fed4eb07bbf5d03937d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

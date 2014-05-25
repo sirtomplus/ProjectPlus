@@ -1,4 +1,8 @@
-5-23-12
+5-24-14
+=========
+* Fixed some bugs with movement when clicking on a tile that an object is on
+
+5-23-14
 =========
 [Added]
 * Exit tile - Currently loads the same game scene which will generate a new level
@@ -8,14 +12,14 @@
 * [Done] Screen orientation
 * Zooming
 
-5-22-12
+5-22-14
 =========
 [Added]
 * Simple Enemy
 * Simple attack command
 * Exit button on the GUI
 
-5-20-12
+5-20-14
 =========
 * Player can only move 1 square at the time now
 * [Not done]Need to keep the game state when entering menus
@@ -26,7 +30,7 @@
 * [Done] Change the levelState array to a 2dimensional array for an easier distance calculation
 
 
-5-19-12
+5-19-14
 =========
 * Added in simple level generator
 	> Generates grid of given rows/cols
@@ -36,6 +40,6 @@
 	> Player can't move onto tiles that are occupied by enemies, objects, etc.
 
 
-5-17-12
+5-17-14
 =========
 * Added in some simple controls to move from tile to tile

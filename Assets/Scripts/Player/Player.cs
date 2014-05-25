@@ -22,9 +22,13 @@ public class Player : Unit{
 			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
 			if(hit.collider != null){
+                Debug.Log(hit.collider.tag);
 				if(hit.collider.tag == "Tile" && !isMoving){
                     if (curTile.GetComponent<Tile>().isValidMove(hit.collider.gameObject.GetComponent<Tile>()))
                         StartCoroutine(moveToTile(hit.collider.gameObject));
+                    else if (curTile.GetComponent<Tile>().isOccupied() && curTile.GetComponent<Tile>().isValidAttack(hit.collider.gameObject.GetComponent<Tile>())) {
+                        Attack(hit.collider.gameObject.GetComponent<Tile>().objOnTile);
+                    }
 				}
 				else if(hit.collider.tag == "Tile"){
 					nextTile = hit.collider.gameObject;
